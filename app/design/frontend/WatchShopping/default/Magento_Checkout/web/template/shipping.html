@@ -15,7 +15,7 @@
         <each args="getRegion('address-list-additional-addresses')" render="" />
 
         <!-- Address form pop up -->
-        <if args="!isFormInline">
+
             <button type="button"
                     class="action action-show-popup"
                     click="showFormPopUp"
@@ -25,7 +25,7 @@
             <div id="opc-new-shipping-address"
                  visible="isFormPopUpVisible()"
                  render="shippingFormTemplate" />
-        </if>
+
 
         <each args="getRegion('before-form')" render="" />
 

@@ -1,0 +1,40 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<!-- ko if: (isVisible()) -->
+<div class="shipping-information">
+    <div class="ship-to" data-bind="mageInit: {'collapsible':{'openedState': 'active', 'active': true}}" >
+        <div class="shipping-information-title" data-role="title">
+            <span data-bind="i18n: 'Ship To:'"></span>
+        </div>
+        <div class="shipping-information-content" data-role="content">
+            <!-- ko foreach: getRegion('ship-to') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="button-edit">
+        <button class="action action-edit" data-bind="click: back">
+            <span data-bind="i18n: 'Edit Address'"></span>
+        </button>
+        </div>
+    </div>
+    <div class="ship-via" data-bind="mageInit: {'collapsible':{'openedState': 'active', 'active': true}}">
+        <div class="shipping-information-title" data-role="title">
+            <span data-bind="i18n: 'Shipping Method:'"></span>
+
+        </div>
+        <div class="shipping-information-content" data-role="content">
+            <span class="value" data-bind="text: getShippingMethodTitle()"></span>
+        </div>
+        <div class="button-edit">
+        <button class="action action-edit" data-bind="click: backToShippingMethod">
+            <span data-bind="i18n: 'Edit Shipping Method'"></span>
+        </button>
+        </div>
+    </div>
+</div>
+<!--/ko-->
