@@ -1,0 +1,125 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Address\Book $block */
+?>
+<div class="block block-addresses-default">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Address Book')) ?></strong></div>
+    <div class="block-content">
+        <div class="block">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Please Note')) ?></span>
+            </strong>
+            <span>
+                <?= $block->escapeHtml(__('Editing any address after an order has been placed will not change the delivery address for that order. If you need to change an address on any order before it is dispatched, please')) ?>
+                <a class="contact-us" href="<?= $block->escapeUrl($block->getUrl('*/*/index/')) ?>">
+                        <?= $block->escapeHtml(__('contact us')) ?>
+                </a>
+                <?= $block->escapeHtml(__('and we will be happy to change it for you.')) ?>
+            </span>
+        </div>
+        <?php if ($_pAddsses = $block->getDefaultBilling()): ?>
+            <div class="box box-address-billing">
+                <strong class="box-title">
+                    <span><?= $block->escapeHtml(__('Default Billing Address')) ?></span>
+                </strong>
+                <div class="box-content">
+                    <address>
+                        <?= $block->getAddressHtml($block->getAddressById($_pAddsses)) ?>
+                    </address>
+                </div>
+                <div class="box-actions">
+                    <a class="action edit" href="<?= $block->escapeUrl($block->getAddressEditUrl($_pAddsses)) ?>">
+                        <span><?= $block->escapeHtml(__('<i class="fa fa-pencil"></i> Edit Address')) ?></span>
+                    </a>
+                    <a class="action delete" href="#" role="delete-address" data-address="<?= $_pAddsses ?>">
+                        <span><?= $block->escapeHtml(__('<i class="fa fa-trash-o"></i> Delete Address')) ?></span>
+                    </a>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="box box-billing-address">
+                <strong class="box-title"><span><?= $block->escapeHtml(__('Default Billing Address')) ?></span></strong>
+                <div class="box-content">
+                    <p><?= $block->escapeHtml(__('You have no default billing address in your address book.')) ?></p>
+                    <button type="button" role="add-address" title="<?= $block->escapeHtmlAttr(__('Add An Address')) ?>" class="action primary add"><span><?= $block->escapeHtml(__('Add New Address')) ?></span></button>
+                </div>
+            </div>
+        <?php endif ?>
+
+        <?php if ($_pAddsses = $block->getDefaultShipping()): ?>
+            <div class="box box-address-shipping">
+                <strong class="box-title">
+                    <span><?= $block->escapeHtml(__('Default Shipping Address')) ?></span>
+                </strong>
+                <div class="box-content">
+                    <address>
+                        <?= $block->getAddressHtml($block->getAddressById($_pAddsses)) ?>
+                    </address>
+                </div>
+                <div class="box-actions">
+                    <a class="action edit" href="<?= $block->escapeUrl($block->getAddressEditUrl($_pAddsses)) ?>">
+                        <span><?= $block->escapeHtml(__('<i class="fa fa-pencil"></i> Edit Address')) ?></span>
+                    </a>
+                    <a class="action delete" href="#" role="delete-address" data-address="<?= $_pAddsses ?>">
+                        <span><?= $block->escapeHtml(__('<i class="fa fa-trash-o"></i> Delete Address')) ?></span>
+                    </a>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="box box-shipping-address">
+                <strong class="box-title"><span><?= $block->escapeHtml(__('Default Shipping Address')) ?></span></strong>
+                <div class="box-content">
+                    <p><?= $block->escapeHtml(__('You have no default shipping address in your address book.')) ?></p>
+                    <button type="button" role="add-address" title="<?= $block->escapeHtmlAttr(__('Add An Address')) ?>" class="action primary add"><span><?= $block->escapeHtml(__('Add New Address')) ?></span></button>
+                </div>
+            </div>
+        <?php endif ?>
+    </div>
+</div>
+
+<div class="block block-addresses-list">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Other Addresses')) ?></strong></div>
+    <div class="block-content">
+        <?php if ($_pAddsses = $block->getAdditionalAddresses()): ?>
+            <ol class="items addresses">
+                <?php foreach ($_pAddsses as $_address): ?>
+                    <li class="item">
+                        <address>
+                            <?= $block->getAddressHtml($_address) ?><br />
+                        </address>
+                        <div class="item actions">
+                            <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('customer/address/edit', ['id' => $_address->getId()])) ?>"><span><?= $block->escapeHtml(__('Edit Address')) ?></span></a>
+                            <a class="action delete" href="#" role="delete-address" data-address="<?= $block->escapeHtmlAttr($_address->getId()) ?>"><span><?= $block->escapeHtml(__('<i class="fa fa-trash-o"></i> Delete Address')) ?></span></a>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        <?php else: ?>
+            <p class="empty"><?= $block->escapeHtml(__('You have no other address entries in your address book.')) ?></p>
+        <?php endif ?>
+    </div>
+</div>
+
+<div class="actions-toolbar">
+    <div class="primary">
+        <button type="button" role="add-address" title="<?= $block->escapeHtmlAttr(__('Add An Address')) ?>" class="action primary add"><span><?= $block->escapeHtml(__('Add New Address')) ?></span></button>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        ".page-main": {
+            "address": {
+                "deleteAddress": "a[role='delete-address']",
+                "deleteUrlPrefix": "<?= $block->escapeJs($block->escapeUrl($block->getDeleteUrl())) ?>id/",
+                "addAddress": "button[role='add-address']",
+                "addAddressLocation": "<?= $block->escapeJs($block->escapeUrl($block->getAddAddressUrl())) ?>"
+            }
+        }
+    }
+</script>

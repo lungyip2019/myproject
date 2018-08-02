@@ -1,0 +1,92 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Address $block */
+?>
+<div class="block block-dashboard-addresses">
+    <div class="block-title">
+        <strong><?php echo __('Address Book') ?></strong>
+    </div>
+    <div class="block-content">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="box box-billing-address">
+                    <div class="page-title"><?php echo __('Default Billing Address') ?></div>
+                    <div class="box-content">
+                        <address>
+                            <?php echo $block->getPrimaryBillingAddressHtml() ?>
+                        </address>
+                    </div>
+                    <?php if($block->getCustomer()->getDefaultBilling()): ?>
+                    <div class="box-actions">
+                            <a class="action edit" href="<?php echo $block->getPrimaryBillingAddressEditUrl() ?>" data-ui-id="default-billing-edit-link">
+                            <?php echo __('<i class="fa fa-pencil"></i> Edit Address') ?>
+                        </a>
+                    </div>
+                    <div class="box-actions">
+                        <form action="<?= $block->escapeUrl($block->getUrl('customer/address/delete', ['id' => $block->getCustomer()->getDefaultBilling() , 'refresh' => 'true' ])) ?>">
+                            <?= $block->getBlockHtml('formkey') ?>
+                            <button type="submit" class="action delete">
+                                <span><?php echo __('<i class="fa fa-trash-o"></i> Delete Address') ?></span>
+                            </button>
+                        </form>
+                    </div>
+                    <?php else: ?>
+                        <div class="box-actions">
+                            <a class="action new" href="<?php echo $block->getUrl('customer/address/new') ?>">
+                                <?php echo __('Add Address') ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+<!--                    <div class="box-actions">-->
+<!--                        -->
+<!--                    </div>-->
+                </div>
+                <div class="box-actions">
+                    <a class="action edit" href="<?php echo $block->getAddressBookUrl() ?>">
+                        <?php echo __('View Address Book') ?>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="box box-shipping-address">
+                    <div class="page-title"><?php echo __('Default Shipping Address') ?></div>
+                    <div class="box-content">
+                        <address>
+                            <?php echo $block->getPrimaryShippingAddressHtml() ?>
+                        </address>
+                    </div>
+                    <?php if($block->getCustomer()->getDefaultShipping()!==null): ?>
+                    <div class="box-actions">
+                        <a class="action edit" href="<?php echo $block->getPrimaryShippingAddressEditUrl() ?>" data-ui-id="default-shipping-edit-link">
+                            <?php echo __('<i class="fa fa-pencil"></i> Edit Address') ?>
+                        </a>
+                    </div>
+                    <div class="box-actions">
+                        <form action="<?= $block->escapeUrl($block->getUrl('customer/address/delete', ['id' => $block->getCustomer()->getDefaultShipping() , 'refresh' => 'true' ])) ?>">
+                            <?= $block->getBlockHtml('formkey') ?>
+                            <button type="submit" class="action delete">
+                                <span><?php echo __('<i class="fa fa-trash-o"></i> Delete Address') ?></span>
+                            </button>
+                        </form>
+                    </div>
+                    <?php else: ?>
+                        <div class="box-actions">
+                            <a class="action new" href="<?php echo $block->getUrl('customer/address/new') ?>">
+                                <?php echo __('Add Address') ?>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+<!--                    <div class="box-actions">-->
+<!--                        -->
+<!--                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

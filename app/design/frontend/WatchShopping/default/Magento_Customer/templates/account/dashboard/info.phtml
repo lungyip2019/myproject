@@ -1,0 +1,66 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Info $block */
+?>
+<div class="block block-dashboard-info">
+    <div class="block-title"><strong><?php echo __('Account Information') ?></strong></div>
+    <div class="block-content">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="page-title"><?php echo __('Contact Information') ?></div>
+                <div class="box box-information">
+                    <div class="box-content">
+                        <p>
+                            <?php echo $block->escapeHtml($block->getName()) ?><br>
+                            <?php echo $block->escapeHtml($block->getCustomer()->getEmail()) ?><br>
+                        </p>
+                    </div>
+
+                    <div class="box-actions">
+                        <a class="action edit" href="<?php echo $block->getUrl('customer/account/edit') ?>">
+                            <i class="fa fa-pencil"></i> <?php echo __('Edit') ?>
+                        </a>
+                    </div>
+
+                    <div class="box-actions">
+                        <a href="<?php echo $block->getChangePasswordUrl() ?>" class="action change-password">
+                            <i class="fa fa-pencil"></i> <?php echo __('Change Password') ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <?php if ($block->isNewsletterEnabled()): ?>
+                    <div class="page-title"><?php echo __('Newsletters') ?></div>
+                    <div class="box box-newsletter">
+                        <div class="box-content">
+                            <p>
+                                <?php if ($block->getIsSubscribed()): ?>
+                                    <?php echo __('You subscribe to "General Subscription".') ?>
+                                <?php else: ?>
+                                    <?php echo __('You don\'t subscribe to our newsletter.') ?>
+                                <?php endif; ?>
+                            </p>
+                            <?php /* Extensions placeholder */ ?>
+                            <?php echo $block->getChildHtml('customer.account.dashboard.info.extra')?>
+                        </div>
+<!--                        <div class="box-actions">-->
+<!--                           -->
+<!--                        </div>-->
+                        <div class="box-actions">
+                            <a class="action edit" href="<?php echo $block->getUrl('newsletter/manage') ?>">
+                                <?php echo __('Edit') ?>
+                            </a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>

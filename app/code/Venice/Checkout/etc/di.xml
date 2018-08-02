@@ -15,10 +15,18 @@
     <type name="Magento\Checkout\Block\Checkout\AttributeMerger">
         <plugin name="shipping_address" type="Venice\Checkout\Model\Plugin\ShippingPlaceHolder"/>
     </type>
+
     <type name="Magento\Directory\Model\ResourceModel\Country\Collection">
         <plugin name="country_option" type="Venice\Checkout\Model\Plugin\CountryOption"/>
     </type>
 
+    <type name="Magento\Checkout\Block\Cart\CartTotalsProcessor">
+        <plugin name="custom_cart_save_plugin" type="Venice\Checkout\Model\Plugin\CartTotals"/>
+    </type>
+
+    <type name="Magento\Checkout\Block\Checkout\TotalsProcessor">
+        <plugin name="checkout_sidebar_save_plugin" type="Venice\Checkout\Model\Plugin\CheckoutSidebarTotals"/>
+    </type>
 
 </config>
 

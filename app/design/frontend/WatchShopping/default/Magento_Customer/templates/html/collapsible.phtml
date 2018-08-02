@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<div class="block <?= /* @escapeNotVerified */ $block->getBlockCss() ?>">
+    <div class="title <?= /* @escapeNotVerified */ $block->getBlockCss() ?>-title" data-role="collapsible" data-mage-init='{"collapsible":{ "active": false, "animate": 400, "collapsible": true}}'>
+        <strong class="blockTitle" id="blockTitle" aria-level="2"><?= /* @escapeNotVerified */ $block->getBlockTitle() ?></strong>
+    </div>
+    <div class="content <?= /* @escapeNotVerified */ $block->getBlockCss() ?>-content" id="<?= /* @escapeNotVerified */ $block->getBlockCss() ?>" data-role="content">
+        <?= $block->getChildHtml() ?>
+    </div>
+<script>
+    document.getElementById("blockTitle").innerHTML = document.getElementsByClassName("nav item current")[0].innerHTML;
+</script>
+</div>

@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Customer My Account (All Pages)" design_abstraction="custom">
+    <body>
+        <referenceBlock name="sidebar.main.account_nav" template="Magento_Customer::html/collapsible.phtml">
+            <arguments>
+                <argument name="block_title" xsi:type="string" translate="true">Account menu</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-downloadable-products-link" remove="true" />
+        <referenceBlock name="customer-account-navigation-account-link">
+            <arguments>
+                <argument name="attributes" xsi:type="array">
+                    <item name="class" xsi:type="string">icon account-dashboard</item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-orders-link">
+            <arguments>
+                <argument name="attributes" xsi:type="array">
+                    <item name="class" xsi:type="string">icon my-orders</item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-address-link">
+            <arguments>
+                <argument name="attributes" xsi:type="array">
+                    <item name="class" xsi:type="string">icon address-book</item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-my-credit-cards-link">
+            <arguments>
+                <argument name="attributes" xsi:type="array">
+                    <item name="class" xsi:type="string">icon payment-options</item>
+                </argument>
+                <argument name="label" xsi:type="string" translate="true">Payment Options</argument>
+                <argument name="My Product Questions" xsi:type="number">160</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-account-edit-link">
+            <arguments>
+                <argument name="attributes" xsi:type="array">
+                    <item name="class" xsi:type="string">icon account-setting</item>
+                </argument>
+                <argument name="label" xsi:type="string" translate="true">Account Setting</argument>
+                <argument name="sortOrder" xsi:type="number">120</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-wish-list-link">
+            <arguments>
+                <argument name="attributes" xsi:type="array">
+                    <item name="class" xsi:type="string">icon wishlist</item>
+                </argument>
+                <argument name="label" xsi:type="string" translate="true">Wishlist</argument>
+                <argument name="sortOrder" xsi:type="number">100</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-product-reviews-link">
+            <arguments>
+                <argument name="attributes" xsi:type="array">
+                    <item name="class" xsi:type="string">icon my-reviews</item>
+                </argument>
+                <argument name="label" xsi:type="string" translate="true">My Reviews</argument>
+                <argument name="sortOrder" xsi:type="number">80</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="customer_account_navigation">
+                <block class="Magento\Customer\Block\Account\SortLink" name="customer-account-navigation-product-questions-link">
+                    <arguments>
+                        <argument name="attributes" xsi:type="array">
+                            <item name="class" xsi:type="string">icon my-questions</item>
+                        </argument>
+                        <argument name="path" xsi:type="string">question/customer</argument>
+                        <argument translate="true" name="label" xsi:type="string">My Questions</argument>
+                        <argument name="sortOrder" xsi:type="number">60</argument>
+                    </arguments>
+                </block>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-newsletter-subscriptions-link">
+            <arguments>
+                <argument name="attributes" xsi:type="array">
+                    <item name="class" xsi:type="string">icon newsletter-subscriptions</item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-billing-agreements-link" remove="true"/>
+        <referenceBlock name="customer-account-navigation-delimiter-1" remove="true" />
+        <referenceBlock name="customer-account-navigation-delimiter-2" remove="true" />
+        <!--Temporary remove-->
+        <referenceBlock name="customer-account-navigation-my-credit-cards-link" remove="true"/>
+    </body>
+</page>

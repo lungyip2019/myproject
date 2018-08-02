@@ -1,0 +1,19 @@
+<?php
+/** @var \Venice\Product\Block\FooterLogout $block */
+$_isLoggedIn = $block->isCustomerLoggedIn();
+?>
+
+<div class="footer-col">
+    <h4>My account</h4>
+    <div class="footer-col-content">
+        <ul>
+            <?php if(!$_isLoggedIn): ?>
+                <li><a href="<?php echo $block->getBaseUrl().'/customer/account/login/' ?>">Sign In</a></li>
+            <?php else: ?>
+                <li><a href="<?php echo $block->getBaseUrl().'/customer/account/logout/' ?>">Sign Out</a></li>
+            <?php endif; ?>
+            <li><a href="<?php echo $block->getBaseUrl().'/checkout/cart/'?>">View Cart</a></li>
+            <li><a href="<?php echo $block->getBaseUrl().'/wishlist/'?>">My Wishlist</a></li>
+        </ul>
+    </div>
+</div>
