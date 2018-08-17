@@ -1,0 +1,50 @@
+<?php
+
+namespace Venice\Form\Setup;
+
+
+use Magento\Framework\Setup\InstallDataInterface;
+use Magento\Framework\Setup\ModuleContextInterface;
+use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Venice\Form\Model\FormRuleFactory;
+
+class InstallData implements InstallDataInterface {
+
+    protected $formRuleFactory;
+
+    public function __construct(FormRuleFactory $formRuleFactory)
+    {
+        $this->formRuleFactory = $formRuleFactory;
+    }
+
+    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    {
+        $installer = $setup;
+        $installer->startSetup();
+
+        $data = [
+            'format_id' => '1',
+            'name' => 'trade-in',
+            'detail' => '[{"title":"Your Information","fields":[{"title":"First name","type":"text","name":"first_name","patterns":"","errorMessage":"","placeholder":"Please enter your first name"},{"title":"Last name","type":"text","name":"last_name","patterns":"","errorMessage":"","placeholder":"Please enter your last name"},{"title":"email","type":"email","name":"email","patterns":"^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$","errorMessage":"Please enter a valid email address (Ex: johndoe@domain.com). ","placeholder":"Please enter your email address"},{"title":"phone","type":"text","name":"phone","patterns":"\\(?([0-9]{2,})\\)?([ .-]?)([0-9]{3,})([ .-]?)([0-9]{4})","errorMessage":"Please enter a valid phone number (Ex: \'855 111-1111\'or \'(855) 111 1111\' ). ","placeholder":"Please enter your phone number"}]},{"title":"Watch Information","fields":[{"title":"Watch Brand","type":"select","name":"watch_brand","option":[{"value":"","name":"-Select-","isDefault":"true"},{"value":"Rolex","name":"Rolex","isDefault":"false"},{"value":"Breitling","name":"Breitling","isDefault":"false"},{"value":"Cartier","name":"Cartier","isDefault":"false"},{"value":"Hublot","name":"Hublot","isDefault":"false"},{"value":"Omega","name":"Omega","isDefault":"false"},{"value":"IWC","name":"IWC","isDefault":"false"},{"value":"Patek Philippe","name":"Patek Philippe","isDefault":"false"}]},{"title":"Model / Series name","type":"text","name":"model","patterns":"","placeholder":"Watch model"},{"title":"Model Number","type":"text","name":"model_number","patterns":"","placeholder":"Model Number"},{"title":"Purchase Date","type":"text","name":"purchase_date","patterns":"^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$","errorMessage":"Please enter a valid date format (Ex: 01/01/1990). ","placeholder":"MM/DD/YYYY"},{"title":"Purchased From","type":"text","name":"purchased_from","patterns":"","placeholder":"Store name"},{"title":"Are original watch box and/or papers available?","type":"select","name":"box_or_papers","option":[{"value":"","name":"-Select-","isDefault":"true"},{"value":"Box Only","name":"Box Only","isDefault":"false"},{"value":"Papers Only","name":"Papers Only","isDefault":"false"},{"value":"Box and Papers","name":"Box and Papers","isDefault":"false"},{"value":"Neither","name":"Neither","isDefault":"false"}]},{"title":"Tell us about the condition of your watch","type":"textarea","name":"condition","patterns":"","placeholder":"Please describe here the condition of your watch (2000 characters maximum)"}]},{"title":"Trade-in Information","fields":[{"title":"I want to apply all credit towards the purchase of (link/model no):","type":"text","name":"trade_in_information","patterns":"","placeholder":"Link/model no"},{"title":"How did you hear about our Trade-In program?","type":"text","name":"heard_from","patterns":"","placeholder":""}]}]'
+        ];
+        $setup->getConnection()->insert($setup->getTable('exchange_form_format'), $data);
+        $data = [
+            'format_id' => '2',
+            'name' => 'sell-rolex',
+            'detail' => '[{"title":"Your Information","fields":[{"title":"First name","type":"text","name":"first_name","patterns":"","errorMessage":"","placeholder":"Please enter your first name"},{"title":"Last name","type":"text","name":"last_name","patterns":"","errorMessage":"","placeholder":"Please enter your last name"},{"title":"email","type":"email","name":"email","patterns":"^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$","errorMessage":"Please enter a valid email address (Ex: johndoe@domain.com). ","placeholder":"Please enter your email address"},{"title":"phone","type":"text","name":"phone","patterns":"\\(?([0-9]{2,})\\)?([ .-]?)([0-9]{3,})([ .-]?)([0-9]{4})","errorMessage":"Please enter a valid phone number (Ex: \'855 111-1111\'or \'(855) 111 1111\' ). ","placeholder":"Please enter your phone number"}]},{"title":"Watch Information","fields":[{"title":"Watch Brand","type":"select","name":"watch_brand","option":[{"value":"","name":"-Select-","isDefault":"false"},{"value":"Rolex","name":"Rolex","isDefault":"true"}]},{"title":"Model / Series name","type":"text","name":"model","patterns":"","placeholder":"Watch model"},{"title":"Model Number","type":"text","name":"model_number","patterns":"","placeholder":"Model Number"},{"title":"Purchase Date","type":"text","name":"purchase_date","patterns":"^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$","errorMessage":"Please enter a valid date format (Ex: 01/01/1990). ","placeholder":"MM/DD/YYYY"},{"title":"Purchased From","type":"text","name":"purchased_from","patterns":"","placeholder":"Store name"},{"title":"Are original watch box and/or papers available?","type":"select","name":"box_or_papers","option":[{"value":"","name":"-Select-","isDefault":"true"},{"value":"Box Only","name":"Box Only","isDefault":"false"},{"value":"Papers Only","name":"Papers Only","isDefault":"false"},{"value":"Box and Papers","name":"Box and Papers","isDefault":"false"},{"value":"Neither","name":"Neither","isDefault":"false"}]},{"title":"Tell us about the condition of your watch","type":"textarea","name":"condition","patterns":"","placeholder":"Please describe here the condition of your watch (2000 characters maximum)"}]}]'
+        ];
+        $setup->getConnection()->insert($setup->getTable('exchange_form_format'), $data);
+        $data = [
+            'format_id' => '3',
+            'name' => 'sell-other',
+            'detail' => '[{"title":"Your Information","fields":[{"title":"First name","type":"text","name":"first_name","patterns":"","errorMessage":"","placeholder":"Please enter your first name"},{"title":"Last name","type":"text","name":"last_name","patterns":"","errorMessage":"","placeholder":"Please enter your last name"},{"title":"email","type":"email","name":"email","patterns":"^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$","errorMessage":"Please enter a valid email address (Ex: johndoe@domain.com). ","placeholder":"Please enter your email address"},{"title":"phone","type":"text","name":"phone","patterns":"\\(?([0-9]{2,})\\)?([ .-]?)([0-9]{3,})([ .-]?)([0-9]{4})","errorMessage":"Please enter a valid phone number (Ex: \'855 111-1111\'or \'(855) 111 1111\' ). ","placeholder":"Please enter your phone number"}]},{"title":"Watch Information","fields":[{"title":"Watch Brand","type":"select","name":"watch_brand","option":[{"value":"","name":"-Select-","isDefault":"true"},{"value":"Breitling","name":"Breitling","isDefault":"false"},{"value":"Cartier","name":"Cartier","isDefault":"false"},{"value":"Hublot","name":"Hublot","isDefault":"false"},{"value":"Omega","name":"Omega","isDefault":"false"},{"value":"IWC","name":"IWC","isDefault":"false"},{"value":"Patek Philippe","name":"Patek Philippe","isDefault":"false"}]},{"title":"Model / Series name","type":"text","name":"model","patterns":"","placeholder":"Watch model"},{"title":"Model Number","type":"text","name":"model_number","patterns":"","placeholder":"Model Number"},{"title":"Purchase Date","type":"text","name":"purchase_date","patterns":"^(((0[1-9]|[12]\\d|3[01])\\/(0[13578]|1[02])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|[12]\\d|30)\\/(0[13456789]|1[012])\\/((19|[2-9]\\d)\\d{2}))|((0[1-9]|1\\d|2[0-8])\\/02\\/((19|[2-9]\\d)\\d{2}))|(29\\/02\\/((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$","errorMessage":"Please enter a valid date format (Ex: 01/01/1990). ","placeholder":"MM/DD/YYYY"},{"title":"Purchased From","type":"text","name":"purchased_from","patterns":"","placeholder":"Store name"},{"title":"Are original watch box and/or papers available?","type":"select","name":"box_or_papers","option":[{"value":"","name":"-Select-","isDefault":"true"},{"value":"Box Only","name":"Box Only","isDefault":"false"},{"value":"Papers Only","name":"Papers Only","isDefault":"false"},{"value":"Box and Papers","name":"Box and Papers","isDefault":"false"},{"value":"Neither","name":"Neither","isDefault":"false"}]},{"title":"Tell us about the condition of your watch","type":"textarea","name":"condition","patterns":"","placeholder":"Please describe here the condition of your watch (2000 characters maximum)"}]}]'
+        ];
+        $setup->getConnection()->insert($setup->getTable('exchange_form_format'), $data);
+        $installer->endSetup();
+
+
+    }
+
+}
+
+?>

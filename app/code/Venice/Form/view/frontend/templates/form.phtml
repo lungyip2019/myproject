@@ -1,0 +1,138 @@
+<?php
+$formId = $block->getCurrentFormId();
+$fields= $block->getFormDetail($formId);
+?>
+
+<form name="input_form" id="input_form" class="feedbackForm" enctype="multipart/form-data" method="post"  autocomplete="off" action="<?php echo $block->getBaseUrl().'form/index/index/' ?>">
+
+    <div class="fieldset">
+        <?php foreach($fields as $field):?>
+        <h3><?php echo $field->title ; ?></h3>
+        <ul class="form-list">
+            <?php foreach ($field->fields as $item):?>
+                <?php if ($item->type == "select"):?>
+                    <li class="<?php echo $item->name ?>">
+                        <label class="<?php echo $item->name ?>" ><?php echo $item->title ?></label>
+                        <div class="<?php echo $item->name ?>">
+                            <select title="<?php echo $item->name ?>" name="<?php echo $item->name ?>" id="<?php echo $item->name ?>" class="<?php echo $item->name ?>">
+                                <?php foreach ($item->option as $option):?>
+                                    <?php if ($option->isDefault == "true"):?>
+                                        <option selected="selected" value="<?php echo $option->value ?>"><?php echo $option->name ?></option>
+                                    <?php else:?>
+                                        <option value="<?php echo $option->value ?>"><?php echo $option->name ?></option>
+                                    <?php endif;?>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
+                    </li>
+               <?php else: ?>
+                <li class="<?php echo $item->name?>">
+                    <label class="<?php echo $item->name ?>" for="<?php echo $item->title ?>"><?php echo $item->title ?></label>
+                    <div class="<?php echo $item->name ?>">
+                        <input type="<?php echo $item->type ?>" id="<?php echo $item->name ?>" name="<?php echo $item->name ?>" <?php if ($item->patterns):?>data-pattern='<?php echo $item->patterns ?>' data-message="<?php echo $item->errorMessage ?>"<?php endif;?> placeholder="<?php echo $item->placeholder ?>">
+                    </div>
+                </li>
+                <?php endif;?>
+            <?php endforeach;?>
+        </ul>
+        <?php endforeach;?>
+        <input type="hidden" name="format_id" value="<?php echo $formId->getFormatId()?>">
+        <div class="buttons-set form-buttons btn-only">
+            <button id="next" class="button" ><span><span>Next</span></span></button>
+        </div>
+    </div>
+</form>
+
+<form id="show_detail" style="display:none" >
+<div class="show_detail" >
+    <?php foreach($fields as $field):?>
+        <h3><?php echo $field->title ; ?></h3>
+        <ul class="form-list">
+            <?php foreach ($field->fields as $item):?>
+                    <li class="<?php echo $item->name?>">
+                        <label class="<?php echo $item->name ?>" for="<?php echo $item->title ?>"><?php echo $item->title ?>:</label>
+                        <div class="<?php echo $item->name ?>">
+                            <div class="form-input" data-name="<?php echo $item->name ?>" ></div>
+                        </div>
+                    </li>
+
+            <?php endforeach;?>
+        </ul>
+    <?php endforeach;?>
+
+</div>
+</form>
+<div class="buttons-set form-buttons btn-only">
+    <button id="submit" class="button"><span><span>Submit</span></span></button>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    jQuery(function( $ ) {
+        var mistake = false;
+
+        function copyForms($form1, $form2) {
+
+            $('div.form-input', $form2).each(function (e) {
+                var value = $(':input[name=' + $(this).data("name") + ']', $form1).val();
+                $(this).html(value);
+            });
+        }
+
+        $('#next').on('click', function (e) {
+            e.preventDefault();
+            if (!checkAll()) {
+                    copyForms($('#input_form'), $('#show_detail'));
+                    $('#input_form').hide();
+                    $('#show_detail').show();
+            }
+        });
+
+        $('#submit').on('click', function () {
+           $('#input_form').submit();
+        });
+
+
+        $(':input[name]', $('#input_form')).each(function () {
+            var errorMsgElement = document.createElement('div');
+            errorMsgElement.className = "errorMessageBox";
+            $(this).parents('li').append(errorMsgElement);
+
+            $(this).keydown(function () {
+                var value = $(this).val();
+
+                var regex = $(this).data('pattern');
+
+                var errorMessage = $(this).data('message');
+
+                if (!validation(value, regex)) {
+                    $(errorMsgElement).html(errorMessage);
+                    mistake = true;
+                } else {
+                    $(errorMsgElement).html('');
+                }
+            });
+        });
+
+        function checkAll() {
+            $(':input[name]', $('#input_form')).each(function () {
+                var value = $(this).val();
+                console.log(value, $.trim(value));
+                if ($.trim(value) === "") {
+                    $(this).parents('li').children('.errorMessageBox').html("This is a required field.");
+                    mistake = true;
+                }
+            });
+            return mistake;
+        }
+
+        function validation(value, regexString) {
+            var regExp = new RegExp(regexString);
+            return regExp.test(value);
+        }
+
+    });
+</script>
+
+

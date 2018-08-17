@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+
+    <preference for="Magento\Framework\DB\LoggerInterface" type="Magento\Framework\DB\Logger\File"/>
+    <type name="Magento\Framework\DB\Logger\File">
+        <arguments>
+            <argument name="logAllQueries" xsi:type="boolean">true</argument>
+            <argument name="debugFile" xsi:type="string">log/sql.log</argument>
+        </arguments>
+    </type>
+</config>
+
